@@ -23,9 +23,9 @@
             <h5 class="card-title">
               DATOS ORDEN
             </h5>
-            <h6><strong> Nombre: </strong> </h6>
-            <h6><strong>Correo: </strong>  </h6>
-            <h6><strong> Dirección: </strong></h6>
+            <h6><strong> Nombre: </strong> {{fistName}}  {{lastName}} </h6>
+            <h6><strong>Correo: </strong> {{email}} </h6>
+            <h6><strong> Dirección: </strong> {{address}} </h6>
 
             <h5 class="card-title">
               PRODUCTOS
@@ -46,7 +46,7 @@
                     <td>{{item.price}}</td>
                     <td>{{item.quantity}}</td>
                     <td>{{item.getTotalPriceItem()}}</td>
-                    <td><button class="btn btn-danger">Quitar</button> </td>
+                    <td><button class="btn btn-danger" (click)="deleteItemCart(item.productId)">Quitar</button> </td>
                   </tr>
                 </tbody>
               </table>
@@ -59,7 +59,7 @@
 
           <ul class="list-group">
             <li class="list-group-item">
-              <h5> Total: </h5>
+              <h5> Total: {{totalCart}} </h5>
             </li>
             <a class="btn btn-dark">Pagar con Paypal</a>
           </ul>

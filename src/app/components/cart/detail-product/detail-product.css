@@ -1,0 +1,63 @@
+/* ============================================================
+   Feedback visual al añadir al carrito (toast)
+   ============================================================ */
+
+.feedback-carrito {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1050;                    /* por encima de la navbar (1030) */
+
+  background-color: #198754;        /* verde Bootstrap success */
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.95rem;
+
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+
+  display: flex;
+  align-items: center;
+  gap: 8px;                         /* si añades un icono */
+  pointer-events: none;             /* no bloquea clics del usuario */
+}
+
+/* ============================================================
+   Animación de entrada
+   ============================================================ */
+
+.animacion-entrada {
+  animation: slide-fade-in 0.35s ease-out forwards;
+}
+
+@keyframes slide-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ============================================================
+   (Opcional) Animación de salida
+   Solo se usa si añades animate.leave="animacion-salida"
+   ============================================================ */
+
+.animacion-salida {
+  animation: slide-fade-out 0.25s ease-in forwards;
+}
+
+@keyframes slide-fade-out {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(10px) scale(0.96);
+  }
+}

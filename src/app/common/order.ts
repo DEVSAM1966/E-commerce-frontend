@@ -7,7 +7,7 @@ export class Order {
         public dateCreated: Date,
         public orderProducts: OrderProduct[],
         public userId: number,
-        public state: OrderState
+        public orderState: OrderState
     ){}
 
     // Método para calcular el total de la orden

@@ -9,6 +9,9 @@ import { OrderProduct } from '../../../common/order-product';
 import { Order } from '../../../common/order';
 import { OrderState } from '../../../common/order-state';
 import { OrderService } from '../../../services/order.service';
+import { PaymentService } from '../../../services/payment.service';
+import { UrlPaypalResponse } from '../../../common/url-paypal-response';
+import { DataPayment } from '../../../common/data-payment';
 
 @Component({
   selector: 'app-sumary-order',
@@ -35,10 +38,12 @@ export class SumaryOrder implements OnInit {
   // Ahora se pone un valor fijo para las pruebas, pero en un futuro se obtendrá del token de autenticación
   userId: number = 2;
 
+  // Añadimos paymentService para obtener la URL de paypal y redirigir al usuario a la página de pago
   constructor(private cartService:CartService, 
               private userService:UserService, 
               private cd: ChangeDetectorRef,
-              private orderService:OrderService) { }
+              private orderService:OrderService,
+              private paymentService:PaymentService) { }
 
   ngOnInit(): void {
     // Ponemos en items la lista de productos que tenemos en el carrito y el total del carrito
@@ -65,6 +70,18 @@ export class SumaryOrder implements OnInit {
     this.orderService.createOrder(order).subscribe(
       data => {
         console.log("Orden creada: " + data.id + " " + data.dateCreated + " " + data.userId + " " + data.orderState);
+      }
+    );
+
+    // CreamosdataPayment para enviar al backend y obtener la URL de paypal
+    let urlPayment;
+    let dataPayment = new DataPayment('PAYPAL', this.cartService.totalCart(), 'USD', 'COMPRA');
+
+    this.paymentService.getUrlPaypalPayment(dataPayment).subscribe(
+      data => {
+        urlPayment = data.url;
+        console.log('Respuesta exitosa: ' + urlPayment);
+        window.location.href = urlPayment; // Redirigir al usuario a la URL de PayPal para completar el pago
       }
     );
   }
